@@ -4,11 +4,15 @@
 #
 
 set -e # fail on unhandled error
-set -u # fail on undefined variable
+#set -u # fail on undefined variable
 #set -x # debug
 
 readonly SCRIPTS_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-readonly TMP_WORK_DIR=$(mktemp -d /tmp/android_prepare_vendor.XXXXXX) || exit 1
+if [ -z "$TMPDIR" ] ; then
+	readonly TMP_WORK_DIR=$(mktemp -d /tmp/android_prepare_vendor.XXXXXX) || exit 1
+else
+	readonly TMP_WORK_DIR=$(mktemp -d $TMPDIR/android_prepare_vendor.XXXXXX) || exit 1
+fi
 declare -a SYS_TOOLS=("mkdir" "dirname" "wget" "mount" "shasum")
 readonly HOST_OS="$(uname -s)"
 
