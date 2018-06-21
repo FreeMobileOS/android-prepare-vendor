@@ -405,6 +405,10 @@ do
   shift
 done
 
+# For debugging purpose
+echo "Build id to download: $BUILDID"
+echo "device: $DEVICE"
+
 # Check user input args
 check_input_args
 
